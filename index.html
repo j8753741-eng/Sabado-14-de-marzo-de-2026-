@@ -2,123 +2,143 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Carta de Amor</title>
+<title>Una carta para ti</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-padding:0;
-background:radial-gradient(circle at bottom,#020111,#000000 70%);
+height:100vh;
+background:radial-gradient(circle at center,#120021,#000000 80%);
 font-family:'Playfair Display',serif;
 color:white;
-overflow-x:hidden;
+overflow:hidden;
 }
 
 /* estrellas */
 
-.stars{
+canvas{
 position:fixed;
-width:100%;
-height:100%;
-background:transparent;
-animation:moveStars 120s linear infinite;
+top:0;
+left:0;
+z-index:-1;
 }
 
-@keyframes moveStars{
-from{transform:translateY(0)}
-to{transform:translateY(-2000px)}
-}
+/* pantalla inicio */
 
-.star{
+.intro{
 position:absolute;
-width:2px;
-height:2px;
-background:white;
-border-radius:50%;
-opacity:0.8;
-}
-
-/* contenedor */
-
-.container{
-max-width:900px;
-margin:auto;
-padding:40px 20px;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 text-align:center;
 }
 
-/* carta */
-
-.letter{
-margin-top:40px;
-padding:60px;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(12px);
-border-radius:20px;
-box-shadow:
-0 0 30px rgba(150,0,255,0.3),
-0 0 80px rgba(100,0,200,0.15);
-animation:fadeIn 2.5s ease;
-}
-
-/* texto */
-
-.letter p{
-font-size:20px;
-line-height:1.9;
-margin-bottom:24px;
-}
-
-/* título */
-
-.title{
+.intro h1{
 font-family:'Cinzel',serif;
-font-size:38px;
+font-size:42px;
 letter-spacing:3px;
-margin-bottom:30px;
-background:linear-gradient(90deg,#ffffff,#d8a9ff,#ffffff);
+background:linear-gradient(90deg,#fff,#c77dff,#fff);
 -webkit-background-clip:text;
 color:transparent;
 }
 
-/* frase final neon */
-
-.neon{
-margin-top:60px;
-font-size:24px;
-font-weight:600;
-color:#c77dff;
-text-shadow:
-0 0 8px #c77dff,
-0 0 16px #b517ff,
-0 0 30px #7209b7,
-0 0 60px #560bad;
-animation:pulse 3s infinite alternate;
+.btn{
+margin-top:30px;
+padding:15px 40px;
+border:none;
+border-radius:40px;
+font-size:18px;
+cursor:pointer;
+background:linear-gradient(45deg,#7b2cbf,#c77dff);
+color:white;
+box-shadow:0 0 20px rgba(199,125,255,0.8);
+transition:.4s;
 }
 
-@keyframes pulse{
-from{text-shadow:
-0 0 10px #c77dff,
-0 0 20px #b517ff,
-0 0 40px #7209b7}
-to{text-shadow:
-0 0 20px #e0aaff,
-0 0 40px #c77dff,
-0 0 80px #7209b7}
+.btn:hover{
+transform:scale(1.1);
+}
+
+/* carta */
+
+.container{
+display:none;
+height:100vh;
+overflow:auto;
+padding:60px 20px;
+}
+
+.letter{
+max-width:850px;
+margin:auto;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border-radius:25px;
+padding:60px;
+box-shadow:
+0 0 30px rgba(199,125,255,0.4),
+0 0 80px rgba(120,0,200,0.2);
+animation:openLetter 2s ease;
+}
+
+@keyframes openLetter{
+from{transform:scale(.8);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+p{
+font-size:20px;
+line-height:1.9;
+margin-bottom:25px;
+opacity:0;
+animation:fadeText 2s forwards;
+}
+
+p:nth-child(1){animation-delay:1s}
+p:nth-child(2){animation-delay:2s}
+p:nth-child(3){animation-delay:3s}
+p:nth-child(4){animation-delay:4s}
+p:nth-child(5){animation-delay:5s}
+p:nth-child(6){animation-delay:6s}
+p:nth-child(7){animation-delay:7s}
+p:nth-child(8){animation-delay:8s}
+p:nth-child(9){animation-delay:9s}
+p:nth-child(10){animation-delay:10s}
+
+@keyframes fadeText{
+to{opacity:1}
 }
 
 iframe{
-margin-top:30px;
+width:100%;
+height:200px;
+border:none;
 border-radius:12px;
-box-shadow:0 0 25px rgba(200,100,255,0.6);
+margin-bottom:40px;
+box-shadow:0 0 25px rgba(199,125,255,0.6);
 }
 
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(30px)}
-to{opacity:1; transform:translateY(0)}
+/* neon final */
+
+.neon{
+margin-top:50px;
+font-size:24px;
+text-align:center;
+color:#c77dff;
+text-shadow:
+0 0 10px #c77dff,
+0 0 25px #b517ff,
+0 0 50px #7209b7,
+0 0 80px #560bad;
+animation:glow 3s infinite alternate;
+}
+
+@keyframes glow{
+from{opacity:.7}
+to{opacity:1}
 }
 
 </style>
@@ -126,20 +146,19 @@ to{opacity:1; transform:translateY(0)}
 
 <body>
 
-<div class="stars" id="stars"></div>
+<canvas id="stars"></canvas>
 
-<div class="container">
+<div class="intro">
+<h1>Una carta para ti mi mujer</h1>
+<button class="btn" onclick="start()">Abrir esta noche especial</button>
+</div>
 
-<div class="title">Para Ti mi mujer</div>
-
-<iframe width="100%" height="200"
-src="https://www.youtube.com/embed/9p2ho7eWmMA"
-title="Canción romántica"
-frameborder="0"
-allow="autoplay; encrypted-media"
-allowfullscreen></iframe>
+<div class="container" id="carta">
 
 <div class="letter">
+
+<iframe src="https://www.youtube.com/embed/9p2ho7eWmMA"></iframe>
+
 <p>MI VIDA ENTERA </p>
 <p>Esta noche de sábado, 14 de marzo de 2026, el mundo sigue su curso como siempre… las luces de la ciudad brillan, el viento pasa suave y el cielo guarda sus estrellas. Pero dentro de mí, todo se detiene un momento para pensar en ti.</p>
 
@@ -221,17 +240,50 @@ y amándote con una intensidad que ni la distancia ni el tiempo podrían apagar 
 
 <script>
 
-/* generar estrellas */
+/* abrir carta */
 
-const stars = document.getElementById("stars");
+function start(){
+document.querySelector(".intro").style.display="none";
+document.getElementById("carta").style.display="block";
+document.body.style.overflow="auto";
+}
+
+/* estrellas animadas */
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
 
 for(let i=0;i<200;i++){
-let s = document.createElement("div");
-s.className="star";
-s.style.top=Math.random()*2000+"px";
-s.style.left=Math.random()*100+"%";
-stars.appendChild(s);
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*1.5
+});
 }
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="white";
+
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+ctx.fill();
+
+s.y+=0.2;
+if(s.y>canvas.height)s.y=0;
+});
+
+requestAnimationFrame(draw);
+}
+
+draw();
 
 </script>
 
